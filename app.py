@@ -70,7 +70,7 @@ def get_insights():
     return generated_output
 
 def get_recommendations():
-    chat_model = ChatOpenAI(openai_api_key=API_KEY, model_name='gpt-4-1106-preview', temperature=0.2)
+    chat_model = ChatOpenAI(openai_api_key=st.secrets['API_KEY'], model_name='gpt-4-1106-preview', temperature=0.2)
     chat_chain = LLMChain(prompt=PromptTemplate.from_template(get_recommendations_prompt), llm=chat_model)
     recs = chat_chain.run(insights=st.session_state.insights)
     return recs
