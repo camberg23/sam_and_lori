@@ -116,6 +116,7 @@ elif st.session_state.page == 2:
         with col1 if i <= len(questions)/2 else col2:
             st.session_state.responses[i-1] = st.selectbox(f"{i}. {question}", options=list(response_options.keys()), index=None, format_func=lambda x: response_options[x], key=f"Q{i}")
 
+    error_placeholder = st.empty()
     col1, col2, col3 = st.columns([1,5,1])
     with col1:
         if st.button("Go Back", key=f'back_{st.session_state.page}'):
@@ -126,7 +127,8 @@ elif st.session_state.page == 2:
                 st.session_state.domain_scores, st.session_state.facet_scores = calculate_scores(st.session_state.responses)
                 go_next()
             else:
-                st.error("Please answer all questions.")
+                with error_placeholder:
+                    st.error("Please answer all questions.")
     
 
 # Page 3: Open-Ended 1
