@@ -287,12 +287,13 @@ elif st.session_state.page == 5:
                 error_placeholder.error("Please fill in both open-ended questions.")
             else:
                 with spinner_placeholder:
-                    with st.spinner('Processing your responses, this will take approximately one minute...'):
+                    with st.spinner('Processing your responses, this will take approximately one minute. Please sit tight...'):
                         st.session_state.insights = get_insights()
                         st.session_state.recommendations = get_recommendations()
                         go_next()
 
 elif st.session_state.page == 6:
+    st.balloons()
     with st.expander("**Comprehensive synthesis from responses**"):
         st.write(st.session_state.insights)
     with st.expander("**Concrete job search recommendations**"):
