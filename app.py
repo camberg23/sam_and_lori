@@ -6,6 +6,10 @@ from langchain_community.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate 
 from langchain.chains import LLMChain
 
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
 st.title("Sam & Lori Intake Form")
 
 # Initialize session state variables if they don't exist
@@ -76,42 +80,7 @@ def get_recommendations():
     return recs
 
 # Page 1: Basic Information
-if st.session_state.page == 1:
-    import smtplib
-    from email.mime.text import MIMEText
-    from email.mime.multipart import MIMEMultipart
-    
-    # Replace these with your SendGrid username and password
-    sendgrid_username = 'apikey'
-    sendgrid_password = st.secrets['SENDGRID']
-    
-    # Sender and recipient
-    from_email = 'cam.h.berg@gmail.com'  # Replace with your sender email
-    to_email = 'cam.h.berg@gmail.com'  # Replace with the recipient email
-    
-    # Email subject and body
-    subject = 'Hello from SendGrid'
-    body = 'This is a test email sent via SendGrid SMTP relay.'
-    
-    # Setup the MIME
-    message = MIMEMultipart()
-    message['From'] = from_email
-    message['To'] = to_email
-    message['Subject'] = subject
-    message.attach(MIMEText(body, 'plain'))
-    
-    # Create SMTP session for sending the mail
-    try:
-        server = smtplib.SMTP('smtp.sendgrid.net', 587)  # Use 465 for SSL
-        server.starttls()  # Secure the connection
-        server.login(sendgrid_username, sendgrid_password)
-        text = message.as_string()
-        server.sendmail(from_email, to_email, text)
-        server.quit()
-        st.write("Email sent successfully!")
-    except Exception as e:
-        st.write(f"Failed to send email: {e}")
-        
+if st.session_state.page == 1:   
     st.subheader("Basic Information")
     st.write("Please fill in your basic information below:")  # Placeholder for more specific instructions
 
@@ -335,3 +304,46 @@ elif st.session_state.page == 6:
         st.write(st.session_state.insights)
     with st.expander("**Concrete job search recommendations**"):
         st.write(st.session_state.recommendations)
+    
+    sendgrid_username = 'apikey'
+    sendgrid_password = st.secrets['SENDGRID']
+    
+    # Sender and recipient
+    from_email = 'cam.h.berg@gmail.com'  # Replace with your sender email
+    to_email = 'cam.h.berg@gmail.com'
+    
+    # Email subject and body
+    subject = f'INTAKE: {st.session_state.personal_info['first_name']} {st.session_state.personal_info['last_name']}'
+    # Formatting the email body using HTML
+    body = f"""
+    <html>
+        <body>
+            <h2>COMPREHENSIVE SYNTHESIS FROM RESPONSES</h2>
+            <p>{st.session_state.insights}</p>
+            <hr>
+            <h2>CONCRETE JOB SEARCH RECOMMENDATIONS</h2>
+            <p>{st.session_state.recommendations}</p>
+        </body>
+    </html>
+    """
+
+    # Setup the MIME
+    message = MIMEMultipart("alternative")
+    message['From'] = from_email
+    message['To'] = to_email
+    message['Subject'] = subject
+    
+    # Attach the HTML version of the body
+    message.attach(MIMEText(body, "html"))
+    
+    # Create SMTP session for sending the mail
+    try:
+        server = smtplib.SMTP('smtp.sendgrid.net', 587)  # Use 465 for SSL
+        server.starttls()  # Secure the connection
+        server.login(sendgrid_username, sendgrid_password)
+        text = message.as_string()
+        server.sendmail(from_email, to_email, text)
+        server.quit()
+        st.write("Email sent successfully!")
+    except Exception as e:
+        st.write(f"Failed to send email: {e}")
