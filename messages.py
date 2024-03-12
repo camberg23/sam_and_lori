@@ -128,7 +128,7 @@ User's response to what their dream job is:
 User's response to what they'd like to do more of that they don't get to do in their current job:
 {do_more}
 
-Please output your comprehensive synthesis and analysis in Markdown for clean formatting.
+Please output your comprehensive synthesis and analysis in HTML for clean formatting! Just immediately give the HTML, don't do anything like ```HTML...``` or something.
 """
 
 get_recommendations_prompt = """
@@ -143,7 +143,7 @@ These recommendations will be given to two professional recruiters as a basis fo
 
 Be sure to provide specific information and links wherever appropriate and to make sure you explain why your suggestions align with the insights about the user provided.
 
-Format your outputs in Markdown. 
+Format your outputs in HTML! Just immediately give the HTML, don't do anything like ```HTML...``` or something.
 
 YOUR OUTPUTS:
 """
