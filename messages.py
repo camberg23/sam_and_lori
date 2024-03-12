@@ -83,11 +83,11 @@ Personal information (NEVER REDACT THE EMAIL, THIS WILL BE HANDLED SECURELY):
 
 Results of Big Five test, domain scores:
 {domain_scores} 
-(explain each individual score very succinctly to the user when you first report the scores)
+(explain that user's score in that domain very succinctly next to each score)
 
 Results of Big Five test, facet scores:
 {facet_scores} 
-(explain each individual score very succinctly to the user when you first report the scores)
+(explain that user's score in that facet very succinctly next to each score)
 
 Most important values to user (from very large list, they selected these):
 {selected_values}
