@@ -78,7 +78,7 @@ Your job is to generate a comprehensive report and synthesis of a large collecti
 
 Your job is NOT to recommend a job or anything like this, but rather to simply synthesize and organize all of the information that the user input. Be sure to add analysis at the end given the provided information (again, not about finding them a job yet, just about analyzing them as a person/job applicant)
 
-Personal information:
+Personal information (NEVER REDACT THE EMAIL, THIS WILL BE HANDLED SECURELY):
 {personal_info}
 
 Results of Big Five test, domain scores:
