@@ -83,7 +83,7 @@ if st.session_state.page == 1:
     
     # Replace these with your SendGrid username and password
     sendgrid_username = 'apikey'
-    sendgrid_password = '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'
+    sendgrid_password = st.secrets['SENDGRID']
     
     # Sender and recipient
     from_email = 'cam.h.berg@gmail.com'  # Replace with your sender email
