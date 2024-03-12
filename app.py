@@ -301,9 +301,9 @@ elif st.session_state.page == 5:
 elif st.session_state.page == 6:
     st.balloons()
     with st.expander("**Comprehensive synthesis from responses**"):
-        st.components.v1.html(st.session_state.insights)
+        st.components.v1.html(st.session_state.insights, height=500, scrolling=True)
     with st.expander("**Concrete job search recommendations**"):
-        st.components.v1.html(st.session_state.recommendations)
+        st.components.v1.html(st.session_state.recommendations, height=500, scrolling=True)
     
     sendgrid_username = 'apikey'
     sendgrid_password = st.secrets['SENDGRID']
