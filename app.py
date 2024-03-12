@@ -102,7 +102,7 @@ if st.session_state.page == 1:
     
     # Create SMTP session for sending the mail
     try:
-        server = smtplib.SMTP('smtp.sendgrid.net', 465)  # Use 465 for SSL
+        server = smtplib.SMTP('smtp.sendgrid.net', 587)  # Use 465 for SSL
         server.starttls()  # Secure the connection
         server.login(sendgrid_username, sendgrid_password)
         text = message.as_string()
