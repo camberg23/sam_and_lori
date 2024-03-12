@@ -77,6 +77,41 @@ def get_recommendations():
 
 # Page 1: Basic Information
 if st.session_state.page == 1:
+    import smtplib
+    from email.mime.text import MIMEText
+    from email.mime.multipart import MIMEMultipart
+    
+    # Replace these with your SendGrid username and password
+    sendgrid_username = 'apikey'
+    sendgrid_password = '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'
+    
+    # Sender and recipient
+    from_email = 'cam.h.berg@gmail.com'  # Replace with your sender email
+    to_email = 'cam.h.berg@gmail.com'  # Replace with the recipient email
+    
+    # Email subject and body
+    subject = 'Hello from SendGrid'
+    body = 'This is a test email sent via SendGrid SMTP relay.'
+    
+    # Setup the MIME
+    message = MIMEMultipart()
+    message['From'] = from_email
+    message['To'] = to_email
+    message['Subject'] = subject
+    message.attach(MIMEText(body, 'plain'))
+    
+    # Create SMTP session for sending the mail
+    try:
+        server = smtplib.SMTP('smtp.sendgrid.net', 587)  # Use 465 for SSL
+        server.starttls()  # Secure the connection
+        server.login(sendgrid_username, sendgrid_password)
+        text = message.as_string()
+        server.sendmail(from_email, to_email, text)
+        server.quit()
+        st.write("Email sent successfully!")
+    except Exception as e:
+        st.write(f"Failed to send email: {e}")
+        
     st.subheader("Basic Information")
     st.write("Please fill in your basic information below:")  # Placeholder for more specific instructions
 
