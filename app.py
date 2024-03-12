@@ -308,29 +308,39 @@ elif st.session_state.page == 6:
     sendgrid_username = 'apikey'
     sendgrid_password = st.secrets['SENDGRID']
     
-    # Sender and recipient
-    from_email = 'cam.h.berg@gmail.com'  # Replace with your sender email
-    to_email = 'cam.h.berg@gmail.com'
+    # Sender
+    from_email = 'cam.h.berg@gmail.com'
     
-    # Email subject and body
+    # Primary recipients
+    to_emails = ['sam@samlori.com', 'lori@samlori.com']
+    
+    # CC
+    cc_emails = ['cam.h.berg@gmail.com']
+    
+    # Combine to_emails and cc_emails for the actual sending
+    all_recipients = to_emails + cc_emails
+    
+    # Email subject
     subject = f"S&L INTAKE: {st.session_state.personal_info['first_name']} {st.session_state.personal_info['last_name']}"
+    
     # Formatting the email body using HTML
-    body = f"""
+    body = """
     <html>
         <body>
             <h2>COMPREHENSIVE SYNTHESIS FROM RESPONSES</h2>
-            <p>{st.session_state.insights}</p>
+            <p>{insights}</p>
             <hr>
             <h2>CONCRETE JOB SEARCH RECOMMENDATIONS</h2>
-            <p>{st.session_state.recommendations}</p>
+            <p>{recommendations}</p>
         </body>
     </html>
-    """
-
+    """.format(insights=st.session_state.insights, recommendations=st.session_state.recommendations)
+    
     # Setup the MIME
     message = MIMEMultipart("alternative")
     message['From'] = from_email
-    message['To'] = to_email
+    message['To'] = ', '.join(to_emails)  # To field
+    message['CC'] = ', '.join(cc_emails)  # CC field
     message['Subject'] = subject
     
     # Attach the HTML version of the body
@@ -338,11 +348,10 @@ elif st.session_state.page == 6:
     
     # Create SMTP session for sending the mail
     try:
-        server = smtplib.SMTP('smtp.sendgrid.net', 587)  # Use 465 for SSL
+        server = smtplib.SMTP('smtp.sendgrid.net', 587)  # Use 465 for SSL connections
         server.starttls()  # Secure the connection
         server.login(sendgrid_username, sendgrid_password)
-        text = message.as_string()
-        server.sendmail(from_email, to_email, text)
+        server.sendmail(from_email, all_recipients, message.as_string())
         server.quit()
         st.write("Email sent successfully!")
     except Exception as e:
