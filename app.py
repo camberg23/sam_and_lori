@@ -313,7 +313,7 @@ elif st.session_state.page == 6:
     to_email = 'cam.h.berg@gmail.com'
     
     # Email subject and body
-    subject = f"INTAKE: {st.session_state.personal_info['first_name']} {st.session_state.personal_info['last_name']}"
+    subject = f"S&L INTAKE: {st.session_state.personal_info['first_name']} {st.session_state.personal_info['last_name']}"
     # Formatting the email body using HTML
     body = f"""
     <html>
