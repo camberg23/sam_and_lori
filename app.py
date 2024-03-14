@@ -34,7 +34,6 @@ if 'world_need' not in st.session_state:
 if 'want_from_job' not in st.session_state:
     st.session_state.want_from_job = ""
 
-
 # Progress bar
 total_pages = 5
 progress_bar_value = (min(st.session_state.page, total_pages)) / total_pages
@@ -352,15 +351,12 @@ elif st.session_state.page == 6:
     with st.expander("**Your responses**"):
         st.write(info_summary)
 
-    # Function to convert the info_summary to a downloadable file
-    def get_text_download_link(text_to_download, filename, button_text):
-        import base64
-        b64 = base64.b64encode(text_to_download.encode()).decode()
-        href = f'<a href="data:file/txt;base64,{b64}" download="{filename}">{button_text}</a>'
-        return href
-
-    # Displaying a link to download the summary as a text file
-    st.markdown(get_text_download_link(info_summary, "UserResponsesSummary.txt", "Download Summary as Text"), unsafe_allow_html=True)
+    st.download_button(
+        label="Download Your Responses as Text",
+        data=get_text_file(info_summary),
+        file_name="UserResponsesSummary.txt",
+        mime='text/plain',
+    )
     
     with st.expander("**Comprehensive synthesis from responses**"):
         st.components.v1.html(st.session_state.insights, height=500, scrolling=True)
@@ -389,7 +385,10 @@ elif st.session_state.page == 6:
     body = """
     <html>
         <body>
-            <h2>COMPREHENSIVE SYNTHESIS FROM RESPONSES</h2>
+            <h2>USER'S RAW RESPONSES</h2>
+            <p>{info_summary}</p>
+            <hr>
+            <h2>ANALYSIS OF RESPONSES</h2>
             <p>{insights}</p>
             <hr>
             <h2>CONCRETE JOB SEARCH RECOMMENDATIONS</h2>
