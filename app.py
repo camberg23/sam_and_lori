@@ -363,7 +363,6 @@ elif st.session_state.page == 6:
         mime='text/html',
     )
 
-    
     with st.expander("**Comprehensive synthesis from responses**"):
         st.components.v1.html(st.session_state.insights, height=500, scrolling=True)
     with st.expander("**Concrete job search recommendations**"):
@@ -401,7 +400,7 @@ elif st.session_state.page == 6:
             <p>{recommendations}</p>
         </body>
     </html>
-    """.format(insights=st.session_state.insights, recommendations=st.session_state.recommendations, info_summary=info_summary)
+    """.format(insights=st.session_state.insights, recommendations=st.session_state.recommendations, info_summary=info_summary_html)
     
     # Setup the MIME
     message = MIMEMultipart("alternative")
