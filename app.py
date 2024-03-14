@@ -357,17 +357,17 @@ elif st.session_state.page == 6:
         st.components.v1.html(info_summary_html, height=500, scrolling=True)
     
     st.download_button(
-        label="Download Your Responses as HTML",
+        label="Download Your Responses",
         data=info_summary_html.encode("utf-8"),  # Encode to bytes for download
         file_name=f"{st.session_state.personal_info['first_name']}{st.session_state.personal_info['last_name']}Responses.html",
         mime='text/html',
     )
-
+    st.write("---")
     with st.expander("**Your report**"):
         st.components.v1.html(st.session_state.insights, height=500, scrolling=True)
 
     st.download_button(
-        label="Download Your Report as HTML",
+        label="Download Your Report",
         data=st.session_state.insights.encode("utf-8"),  # Encode to bytes for download
         file_name=f"{st.session_state.personal_info['first_name']}{st.session_state.personal_info['last_name']}Report.html",
         mime='text/html',
