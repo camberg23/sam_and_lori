@@ -359,14 +359,22 @@ elif st.session_state.page == 6:
     st.download_button(
         label="Download Your Responses as HTML",
         data=info_summary_html.encode("utf-8"),  # Encode to bytes for download
-        file_name="UserResponsesSummary.html",
+        file_name=f"{st.session_state.personal_info['first_name']}{st.session_state.personal_info['last_name']}Responses.html",
         mime='text/html',
     )
 
     with st.expander("**Comprehensive synthesis from responses**"):
         st.components.v1.html(st.session_state.insights, height=500, scrolling=True)
-    with st.expander("**Concrete job search recommendations**"):
-        st.components.v1.html(st.session_state.recommendations, height=500, scrolling=True)
+
+    st.download_button(
+        label="Download Your Report as HTML",
+        data=st.session_state.insights.encode("utf-8"),  # Encode to bytes for download
+        file_name=f"{st.session_state.personal_info['first_name']}{st.session_state.personal_info['last_name']}Report.html",
+        mime='text/html',
+    )
+    
+    # with st.expander("**Concrete job search recommendations**"):
+    #     st.components.v1.html(st.session_state.recommendations, height=500, scrolling=True)
     
     sendgrid_username = 'apikey'
     sendgrid_password = st.secrets['SENDGRID']
