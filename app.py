@@ -117,7 +117,7 @@ elif st.session_state.page == 2:
     col1, col2 = st.columns(2)
     for i, question in enumerate(questions, start=1):
         with col1 if i <= len(questions)/2 else col2:
-            st.session_state.responses[i-1] = st.selectbox(f"{i}. {question}", options=list(response_options.keys()), index=3, format_func=lambda x: response_options[x], key=f"Q{i}")
+            st.session_state.responses[i-1] = st.selectbox(f"{i}. {question}", options=list(response_options.keys()), index=None, format_func=lambda x: response_options[x], key=f"Q{i}")
 
     error_placeholder = st.empty()
     col1, col2, col3 = st.columns([1,5,1])
