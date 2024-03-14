@@ -353,7 +353,7 @@ elif st.session_state.page == 6:
 
     st.download_button(
         label="Download Your Responses as Text",
-        data=get_text_file(info_summary),
+        data=info_summary,
         file_name="UserResponsesSummary.txt",
         mime='text/plain',
     )
