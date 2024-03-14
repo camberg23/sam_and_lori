@@ -300,6 +300,68 @@ elif st.session_state.page == 5:
 
 elif st.session_state.page == 6:
     st.balloons()
+    # Prepare the comprehensive synthesis and recommendations
+    info_summary = f"""
+    **Personal Information**
+    Name: {st.session_state.personal_info['first_name']} {st.session_state.personal_info['last_name']}
+    Email: {st.session_state.personal_info['email']}
+
+    **Results of Big Five Test**
+    - Domain Scores: {st.session_state.domain_scores}
+    - Facet Scores: {st.session_state.facet_scores}
+
+    **Most Important Values to User**
+    {', '.join(st.session_state.selected_values)}
+
+    **User's Input on Day-to-Day Life if Money Were No Object**
+    {st.session_state.if_not_money}
+
+    **What the User Believes They Can Get Paid For**
+    {st.session_state.get_paid_for}
+
+    **What the User Thinks the World Needs**
+    {st.session_state.world_need}
+
+    **What the User Wants From a Job**
+    {st.session_state.want_from_job}
+
+    **Soft Skills**
+    {'; '.join([f"{skill['skill']}: {skill['example']}" for skill in st.session_state.soft_skills])}
+
+    **Hard Skills**
+    {'; '.join([f"{skill['skill']}: {skill['example']}" for skill in st.session_state.hard_skills])}
+
+    **Desired Salary Range**
+    ${st.session_state.salary_low} - ${st.session_state.salary_high}
+
+    **Preferred Geography**
+    {', '.join(st.session_state.preferred_geography)}
+
+    **User's Current Location**
+    {st.session_state.current_location}
+
+    **User's Willingness to Move**
+    {st.session_state.willing_to_move}
+
+    **User's Dream Job**
+    {st.session_state.dream_job}
+
+    **What the User Would Like to Do More Of**
+    {st.session_state.do_more}
+    """
+    with st.expander("**Your responses**"):
+        st.write(info_summary)
+
+    # Function to convert the info_summary to a downloadable file
+    def get_text_download_link(text_to_download, filename, button_text):
+        import base64
+        b64 = base64.b64encode(text_to_download.encode()).decode()
+        href = f'<a href="data:file/txt;base64,{b64}" download="{filename}">{button_text}</a>'
+        return href
+
+    # Displaying a link to download the summary as a text file
+    st.markdown(get_text_download_link(info_summary, "UserResponsesSummary.txt", "Download Summary as Text"), unsafe_allow_html=True)
+    
     with st.expander("**Comprehensive synthesis from responses**"):
         st.components.v1.html(st.session_state.insights, height=500, scrolling=True)
     with st.expander("**Concrete job search recommendations**"):
