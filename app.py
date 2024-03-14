@@ -355,7 +355,7 @@ elif st.session_state.page == 6:
     """
     
     col1, col2 = st.columns([5,1])
-    st.subheader(Your Responses)
+    st.subheader('Your Responses')
     with col1:
         with st.expander("**View your responses**"):
             st.components.v1.html(info_summary_html, height=500, scrolling=True)
@@ -368,7 +368,7 @@ elif st.session_state.page == 6:
         )
     st.write("---")
     col1, col2 = st.columns([5,1])
-    st.subheader(Your Report)
+    st.subheader('Your Report')
     with col1:
         with st.expander("**View your report**"):
             st.components.v1.html(st.session_state.insights, height=500, scrolling=True)
