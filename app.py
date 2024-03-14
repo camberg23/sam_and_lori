@@ -298,6 +298,7 @@ elif st.session_state.page == 5:
                         go_next()
 
 elif st.session_state.page == 6:
+    st.write('Thank you for completing the intake form! Below, please find your responses and analysis of your results. Be sure to save or download this information before leaving the page if you'd like to keep it!')
     st.balloons()
     # Convert info_summary to use HTML formatting
     info_summary_html = f"""
