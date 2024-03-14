@@ -75,7 +75,7 @@ def get_insights():
 def get_recommendations():
     chat_model = ChatOpenAI(openai_api_key=st.secrets['API_KEY'], model_name='gpt-4-1106-preview', temperature=0.2)
     chat_chain = LLMChain(prompt=PromptTemplate.from_template(get_recommendations_prompt), llm=chat_model)
-    recs = chat_chain.run(insights=st.session_state.insights)
+    recs = chat_chain.run(raw_data=st.session_state.info_summary_html, insights=st.session_state.insights)
     return recs
 
 # Page 1: Basic Information
@@ -292,6 +292,59 @@ elif st.session_state.page == 5:
                 error_placeholder.error("Please fill in both open-ended questions.")
             else:
                 with spinner_placeholder:
+                    st.session_state.info_summary_html = f"""
+                    <html>
+                    <body>
+                    <h2>Personal Information</h2>
+                    <p><strong>Name:</strong> {st.session_state.personal_info['first_name']} {st.session_state.personal_info['last_name']}</p>
+                    <p><strong>Email:</strong> {st.session_state.personal_info['email']}</p>
+                    
+                    <h2>Results of Big Five Test</h2>
+                    <p><strong>Domain Scores:</strong> {st.session_state.domain_scores}</p>
+                    <p><strong>Facet Scores:</strong> {st.session_state.facet_scores}</p>
+                    
+                    <h2>Most Important Values to User</h2>
+                    <p>{', '.join(st.session_state.selected_values)}</p>
+                    
+                    <h2>User's Input on Day-to-Day Life if Money Were No Object</h2>
+                    <p>{st.session_state.if_not_money}</p>
+                    
+                    <h2>What the User Believes They Can Get Paid For</h2>
+                    <p>{st.session_state.get_paid_for}</p>
+                    
+                    <h2>What the User Thinks the World Needs</h2>
+                    <p>{st.session_state.world_need}</p>
+                    
+                    <h2>What the User Wants From a Job</h2>
+                    <p>{st.session_state.want_from_job}</p>
+                    
+                    <h2>Soft Skills</h2>
+                    <p>{'; '.join([f"{skill['skill']}: {skill['example']}" for skill in st.session_state.soft_skills])}</p>
+                    
+                    <h2>Hard Skills</h2>
+                    <p>{'; '.join([f"{skill['skill']}: {skill['example']}" for skill in st.session_state.hard_skills])}</p>
+                    
+                    <h2>Desired Salary Range</h2>
+                    <p>${st.session_state.salary_low} - ${st.session_state.salary_high}</p>
+                    
+                    <h2>Preferred Geography</h2>
+                    <p>{', '.join(st.session_state.preferred_geography)}</p>
+                    
+                    <h2>User's Current Location</h2>
+                    <p>{st.session_state.current_location}</p>
+                    
+                    <h2>User's Willingness to Move</h2>
+                    <p>{st.session_state.willing_to_move}</p>
+                    
+                    <h2>User's Dream Job</h2>
+                    <p>{st.session_state.dream_job}</p>
+                    
+                    <h2>What the User Would Like to Do More Of</h2>
+                    <p>{st.session_state.do_more}</p>
+                    </body>
+                    </html>
+                    """
+                    
                     with st.spinner('Processing your responses, this will take approximately one minute. Please sit tight...'):
                         st.session_state.insights = get_insights()
                         st.session_state.recommendations = get_recommendations()
@@ -300,69 +353,16 @@ elif st.session_state.page == 5:
 elif st.session_state.page == 6:
     st.write("Thank you for completing the intake form! Below, please find your responses and analysis of your results. Be sure to save or download this information before leaving the page if you'd like to keep it!")
     st.balloons()
-    # Convert info_summary to use HTML formatting
-    info_summary_html = f"""
-    <html>
-    <body>
-    <h2>Personal Information</h2>
-    <p><strong>Name:</strong> {st.session_state.personal_info['first_name']} {st.session_state.personal_info['last_name']}</p>
-    <p><strong>Email:</strong> {st.session_state.personal_info['email']}</p>
-    
-    <h2>Results of Big Five Test</h2>
-    <p><strong>Domain Scores:</strong> {st.session_state.domain_scores}</p>
-    <p><strong>Facet Scores:</strong> {st.session_state.facet_scores}</p>
-    
-    <h2>Most Important Values to User</h2>
-    <p>{', '.join(st.session_state.selected_values)}</p>
-    
-    <h2>User's Input on Day-to-Day Life if Money Were No Object</h2>
-    <p>{st.session_state.if_not_money}</p>
-    
-    <h2>What the User Believes They Can Get Paid For</h2>
-    <p>{st.session_state.get_paid_for}</p>
-    
-    <h2>What the User Thinks the World Needs</h2>
-    <p>{st.session_state.world_need}</p>
-    
-    <h2>What the User Wants From a Job</h2>
-    <p>{st.session_state.want_from_job}</p>
-    
-    <h2>Soft Skills</h2>
-    <p>{'; '.join([f"{skill['skill']}: {skill['example']}" for skill in st.session_state.soft_skills])}</p>
-    
-    <h2>Hard Skills</h2>
-    <p>{'; '.join([f"{skill['skill']}: {skill['example']}" for skill in st.session_state.hard_skills])}</p>
-    
-    <h2>Desired Salary Range</h2>
-    <p>${st.session_state.salary_low} - ${st.session_state.salary_high}</p>
-    
-    <h2>Preferred Geography</h2>
-    <p>{', '.join(st.session_state.preferred_geography)}</p>
-    
-    <h2>User's Current Location</h2>
-    <p>{st.session_state.current_location}</p>
-    
-    <h2>User's Willingness to Move</h2>
-    <p>{st.session_state.willing_to_move}</p>
-    
-    <h2>User's Dream Job</h2>
-    <p>{st.session_state.dream_job}</p>
-    
-    <h2>What the User Would Like to Do More Of</h2>
-    <p>{st.session_state.do_more}</p>
-    </body>
-    </html>
-    """
     
     st.subheader('Your Responses')
     col1, col2 = st.columns([5,1])
     with col1:
         with st.expander("**View your responses**"):
-            st.components.v1.html(info_summary_html, height=500, scrolling=True)
+            st.components.v1.html(st.session_state.info_summary_html, height=500, scrolling=True)
     with col2:
         st.download_button(
             label="Download",
-            data=info_summary_html.encode("utf-8"),  # Encode to bytes for download
+            data=st.session_state.info_summary_html.encode("utf-8"),  # Encode to bytes for download
             file_name=f"{st.session_state.personal_info['first_name']}{st.session_state.personal_info['last_name']}Responses.html",
             mime='text/html',
         )
