@@ -395,7 +395,7 @@ elif st.session_state.page == 6:
             <p>{recommendations}</p>
         </body>
     </html>
-    """.format(insights=st.session_state.insights, recommendations=st.session_state.recommendations)
+    """.format(insights=st.session_state.insights, recommendations=st.session_state.recommendations, info_summary=info_summary)
     
     # Setup the MIME
     message = MIMEMultipart("alternative")
