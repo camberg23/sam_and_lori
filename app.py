@@ -380,7 +380,6 @@ elif st.session_state.page == 6:
             mime='text/html',
         )
 
-    st.write(st.session_state.recommendations)
     # with st.expander("**Concrete job search recommendations**"):
     #     st.components.v1.html(st.session_state.recommendations, height=500, scrolling=True)
     
@@ -429,12 +428,12 @@ elif st.session_state.page == 6:
     message.attach(MIMEText(body, "html"))
     
     # Create SMTP session for sending the mail
-    # try:
-    #     server = smtplib.SMTP('smtp.sendgrid.net', 587)  # Use 465 for SSL connections
-    #     server.starttls()  # Secure the connection
-    #     server.login(sendgrid_username, sendgrid_password)
-    #     server.sendmail(from_email, all_recipients, message.as_string())
-    #     server.quit()
-    #     st.write("Email sent successfully!")
-    # except Exception as e:
-    #     st.write(f"Failed to send email: {e}")
+    try:
+        server = smtplib.SMTP('smtp.sendgrid.net', 587)  # Use 465 for SSL connections
+        server.starttls()  # Secure the connection
+        server.login(sendgrid_username, sendgrid_password)
+        server.sendmail(from_email, all_recipients, message.as_string())
+        server.quit()
+        st.write("Email sent successfully!")
+    except Exception as e:
+        st.write(f"Failed to send email: {e}")
