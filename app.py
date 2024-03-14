@@ -379,7 +379,8 @@ elif st.session_state.page == 6:
             file_name=f"{st.session_state.personal_info['first_name']}{st.session_state.personal_info['last_name']}Report.html",
             mime='text/html',
         )
-    
+
+    st.write(st.session_state.recommendations)
     # with st.expander("**Concrete job search recommendations**"):
     #     st.components.v1.html(st.session_state.recommendations, height=500, scrolling=True)
     
@@ -415,7 +416,7 @@ elif st.session_state.page == 6:
             <p>{recommendations}</p>
         </body>
     </html>
-    """.format(insights=st.session_state.insights, recommendations=st.session_state.recommendations, info_summary=info_summary_html)
+    """.format(insights=st.session_state.insights, recommendations=st.session_state.recommendations, info_summary=st.session_state.info_summary_html)
     
     # Setup the MIME
     message = MIMEMultipart("alternative")
