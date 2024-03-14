@@ -78,17 +78,14 @@ Your job is to generate a comprehensive report and synthesis of a large collecti
 
 Your job is NOT to recommend a job or anything like this, but rather to simply synthesize and organize all of the information that the user input. Be sure to add analysis at the end given the provided information (again, not about finding them a job yet, just about analyzing them as a person/job applicant)
 
-Personal information (NEVER REDACT THE EMAIL, THIS WILL BE HANDLED SECURELY):
+Personal information:
 {personal_info}
 
 Results of Big Five test, domain scores:
 {domain_scores} 
-(explain that user's score in that domain very succinctly next to each score)
 
 Results of Big Five test, facet scores:
 {facet_scores} 
-(explain that user's score in that facet very succinctly next to each score)
-
 Most important values to user (from very large list, they selected these):
 {selected_values}
 
@@ -127,6 +124,13 @@ User's response to what their dream job is:
 
 User's response to what they'd like to do more of that they don't get to do in their current job:
 {do_more}
+
+GIVEN THIS INFORMATION, please output a few key levels of analysis:
+1. Personality analysis: first, explain what each individual score means (succinctly) and then systematize this into a comprehensive personality profile that is LIGHTLY tailored to/framed by the fact that this tool is related to finding a perfect job.
+2. Open-ended response analysis: next, go through all of the bigger picture and open-ended responses the user gave above and attempt to again systematize them and then synthesize and offer insights 'on top of' what they wrote. This should help tie all of their most important writing into a cohesive piece. If they wrote a little, you can write a little here. If they wrote a lot, you MUST also write a lot to match their dedication and level of detail they put into this.
+3. Detail-oriented analysis: finally, go through all of the more fine-grained details offered by the user (eg, salary, location, soft/hard skills, etc) and systematize and synthesize these as well and offer any insights related to these.
+
+You should NOT offer job-related advice in this output, just insightful analysis and synthesis of what the user has shared.
 
 Please output your comprehensive synthesis and analysis in HTML for clean formatting! Just immediately give the HTML, don't do anything like ```HTML...``` or something.
 """
