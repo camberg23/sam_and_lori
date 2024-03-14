@@ -363,7 +363,7 @@ elif st.session_state.page == 6:
         mime='text/html',
     )
 
-    with st.expander("**Your report*"):
+    with st.expander("**Your report**"):
         st.components.v1.html(st.session_state.insights, height=500, scrolling=True)
 
     st.download_button(
