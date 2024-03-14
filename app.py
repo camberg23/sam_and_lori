@@ -434,6 +434,6 @@ elif st.session_state.page == 6:
         server.login(sendgrid_username, sendgrid_password)
         server.sendmail(from_email, all_recipients, message.as_string())
         server.quit()
-        st.write("Email sent successfully!")
+        # st.write("Email sent successfully!")
     except Exception as e:
         st.write(f"Failed to send email: {e}")
