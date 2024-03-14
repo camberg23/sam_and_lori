@@ -138,14 +138,17 @@ Please output your comprehensive synthesis and analysis in HTML for clean format
 get_recommendations_prompt = """
 You will be given a comprehensive synthesis of a user's information related to finding the perfect job using holistic and concrete information gathered from them.
 
-Here is the comprehensive synthesis and some analysis that was generated from the user's raw responses:
+Here are the raw responses given by the user:
+{raw_data}
+
+Here are some insights that was generated from the user's raw responses:
 {insights}
 
-Given these insights, your job is to provide concrete recommendations for jobs/job types in the creative world that might suit the user.
+Given the user's responses and these insights, your job is to provide concrete recommendations for jobs/job types in the creative world that might suit the user.
 
 These recommendations will be given to two professional recruiters as a basis for their consultation and continued work with the user. 
 
-Be sure to provide specific information and links wherever appropriate and to make sure you explain why your suggestions align with the insights about the user provided.
+Be sure to provide specific information and VALID links wherever appropriate and to make sure you explain why your suggestions align with the insights about the user provided.
 
 Format your outputs in HTML! Just immediately give the HTML, don't do anything like ```HTML...``` or something.
 
