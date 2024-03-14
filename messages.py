@@ -126,7 +126,7 @@ User's response to what they'd like to do more of that they don't get to do in t
 {do_more}
 
 GIVEN THIS INFORMATION, please output a few key levels of analysis:
-1. Personality analysis: first, explain what each individual score means (succinctly) and then systematize this into a comprehensive personality profile that is LIGHTLY tailored to/framed by the fact that this tool is related to finding a perfect job.
+1. Personality analysis: first, explain what each individual score means (succinctly) and then systematize this into a comprehensive personality profile that is LIGHTLY tailored to/framed by the fact that this tool is related to finding a perfect job. Be sure to include both the Big Five Traits and the Facets information wherever appropriate or relevant. (Describe each trait and then pull in specific facet scores to provide a fuller picture.)
 2. Open-ended response analysis: next, go through all of the bigger picture and open-ended responses the user gave above and attempt to again systematize them and then synthesize and offer insights 'on top of' what they wrote. This should help tie all of their most important writing into a cohesive piece. If they wrote a little, you can write a little here. If they wrote a lot, you MUST also write a lot to match their dedication and level of detail they put into this.
 3. Detail-oriented analysis: finally, go through all of the more fine-grained details offered by the user (eg, salary, location, soft/hard skills, etc) and systematize and synthesize these as well and offer any insights related to these.
 
