@@ -10,6 +10,8 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
+st.set_page_config(page_title="Sam & Lori Intake Form", page_icon="favicon.png")
+
 st.title("Sam & Lori Intake Form")
 
 # Initialize session state variables if they don't exist
