@@ -13,7 +13,7 @@ from email.mime.multipart import MIMEMultipart
 st.set_page_config(page_title="Sam & Lori Intake Form", page_icon="favicon.png")
 
 st.image('SLicons-12.png', width=500)
-st.subheader("*intake form*")
+# st.subheader("*intake form*")
 
 # Initialize session state variables if they don't exist
 if 'page' not in st.session_state:
