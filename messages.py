@@ -10,7 +10,7 @@ questions = [
     "Is dominant, acts as a leader.",
     "Is sometimes rude to others.",
     "Has difficulty getting started on tasks.",
-    "Tends to feel depressed, blue.",
+    "Tends to feel down, blue.",
     "Has little interest in abstract ideas.",
     "Is full of energy.",
     "Assumes the best about people.",
