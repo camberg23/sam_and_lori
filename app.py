@@ -386,57 +386,64 @@ elif st.session_state.page == 6:
     # with st.expander("**Concrete job search recommendations**"):
     #     st.components.v1.html(st.session_state.recommendations, height=500, scrolling=True)
     
-    sendgrid_username = 'apikey'
-    sendgrid_password = st.secrets['SENDGRID']
+    # Initialize session state variables if they don't exist
+    if 'email_sent' not in st.session_state:
+        st.session_state.email_sent = False
     
-    # Sender
-    from_email = 'cam.h.berg@gmail.com'
+    # Email sending logic
+    if not st.session_state.email_sent:
+        sendgrid_username = 'apikey'
+        sendgrid_password = st.secrets['SENDGRID']
     
-    # Primary recipients
-    to_emails = ['sam@samlori.com', 'lori@samlori.com']
+        # Sender
+        from_email = 'cam.h.berg@gmail.com'
     
-    # CC
-    cc_emails = ['cam.h.berg@gmail.com']
+        # Primary recipients
+        to_emails = ['sam@samlori.com', 'lori@samlori.com']
     
-    # Combine to_emails and cc_emails for the actual sending
-    all_recipients = to_emails + cc_emails
+        # CC
+        cc_emails = ['cam.h.berg@gmail.com']
     
-    # Email subject
-    subject = f"S&L INTAKE: {st.session_state.personal_info['first_name']} {st.session_state.personal_info['last_name']}"
+        # Combine to_emails and cc_emails for the actual sending
+        all_recipients = to_emails + cc_emails
     
-    # Formatting the email body using HTML
-    body = """
-    <html>
-        <body>
-            <h2>USER'S RAW RESPONSES</h2>
-            <p>{info_summary}</p>
-            <hr>
-            <h2>ANALYSIS OF RESPONSES</h2>
-            <p>{insights}</p>
-            <hr>
-            <h2>CONCRETE JOB SEARCH RECOMMENDATIONS</h2>
-            <p>{recommendations}</p>
-        </body>
-    </html>
-    """.format(insights=st.session_state.insights, recommendations=st.session_state.recommendations, info_summary=st.session_state.info_summary_html)
+        # Email subject
+        subject = f"S&L INTAKE: {st.session_state.personal_info['first_name']} {st.session_state.personal_info['last_name']}"
     
-    # Setup the MIME
-    message = MIMEMultipart("alternative")
-    message['From'] = from_email
-    message['To'] = ', '.join(to_emails)  # To field
-    message['CC'] = ', '.join(cc_emails)  # CC field
-    message['Subject'] = subject
+        # Formatting the email body using HTML
+        body = """
+        <html>
+            <body>
+                <h2>USER'S RAW RESPONSES</h2>
+                <p>{info_summary}</p>
+                <hr>
+                <h2>ANALYSIS OF RESPONSES</h2>
+                <p>{insights}</p>
+                <hr>
+                <h2>CONCRETE JOB SEARCH RECOMMENDATIONS</h2>
+                <p>{recommendations}</p>
+            </body>
+        </html>
+        """.format(insights=st.session_state.insights, recommendations=st.session_state.recommendations, info_summary=st.session_state.info_summary_html)
     
-    # Attach the HTML version of the body
-    message.attach(MIMEText(body, "html"))
+        # Setup the MIME
+        message = MIMEMultipart("alternative")
+        message['From'] = from_email
+        message['To'] = ', '.join(to_emails)  # To field
+        message['CC'] = ', '.join(cc_emails)  # CC field
+        message['Subject'] = subject
     
-    # Create SMTP session for sending the mail
-    try:
-        server = smtplib.SMTP('smtp.sendgrid.net', 587)  # Use 465 for SSL connections
-        server.starttls()  # Secure the connection
-        server.login(sendgrid_username, sendgrid_password)
-        server.sendmail(from_email, all_recipients, message.as_string())
-        server.quit()
-        # st.write("Email sent successfully!")
-    except Exception as e:
-        st.write(f"Failed to send email: {e}")
+        # Attach the HTML version of the body
+        message.attach(MIMEText(body, "html"))
+    
+        # Create SMTP session for sending the mail
+        try:
+            server = smtplib.SMTP('smtp.sendgrid.net', 587)  # Use 465 for SSL connections
+            server.starttls()  # Secure the connection
+            server.login(sendgrid_username, sendgrid_password)
+            server.sendmail(from_email, all_recipients, message.as_string())
+            server.quit()
+            st.session_state.email_sent = True  # Set the flag to true after sending the email
+            st.write("Email sent successfully!")
+        except Exception as e:
+            st.write(f"Failed to send email: {e}")
