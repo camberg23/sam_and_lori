@@ -53,7 +53,7 @@ def go_back():
         st.rerun()
 
 def get_insights():
-    chat_model = ChatOpenAI(openai_api_key=st.secrets['API_KEY'], model_name='gpt-4-1106-preview', temperature=0.2)
+    chat_model = ChatOpenAI(openai_api_key=st.secrets['API_KEY'], model_name='gpt-4o-2024-08-06', temperature=0.2)
     chat_chain = LLMChain(prompt=PromptTemplate.from_template(get_insights_prompt), llm=chat_model)
     generated_output = chat_chain.run(
                                     personal_info=st.session_state.personal_info,
@@ -76,7 +76,7 @@ def get_insights():
     return generated_output
 
 def get_recommendations():
-    chat_model = ChatOpenAI(openai_api_key=st.secrets['API_KEY'], model_name='gpt-4-1106-preview', temperature=0.2)
+    chat_model = ChatOpenAI(openai_api_key=st.secrets['API_KEY'], model_name='gpt-4o-2024-08-06', temperature=0.2)
     chat_chain = LLMChain(prompt=PromptTemplate.from_template(get_recommendations_prompt), llm=chat_model)
     recs = chat_chain.run(raw_data=st.session_state.info_summary_html, insights=st.session_state.insights)
     return recs
