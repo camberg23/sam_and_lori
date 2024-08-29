@@ -399,7 +399,7 @@ elif st.session_state.page == 6:
         from_email = 'cam.h.berg@gmail.com'
     
         # Primary recipients
-        to_emails = ['sam@samlori.com', 'lori@samlori.com']
+        to_emails = ['sam@yourcareercompass.com']
     
         # CC
         cc_emails = ['cam.h.berg@gmail.com']
