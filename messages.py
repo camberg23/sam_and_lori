@@ -148,7 +148,7 @@ Given the user's responses and these insights, your job is to provide concrete r
 
 These recommendations will be given to two professional recruiters as a basis for their consultation and continued work with the user. 
 
-Be sure to provide specific information and VALID links wherever appropriate and to make sure you explain why your suggestions align with the insights about the user provided.
+Be sure to provide specific information wherever appropriate and to make sure you explain why your suggestions align with the insights about the user provided. Do not give any links.
 
 Format your outputs in HTML! Just immediately give the HTML, don't do anything like ```HTML...``` or something.
 
