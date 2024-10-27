@@ -144,7 +144,7 @@ if not st.session_state.authenticated:
     if submit_pressed:
         if password_input == st.secrets['PASSWORD']:
             st.session_state.authenticated = True
-            st.experimental_rerun()
+            st.rerun()
         else:
             st.error("Incorrect password. Please try again.")
 else:
