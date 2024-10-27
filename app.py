@@ -552,14 +552,11 @@ else:
                     <h2>USER'S RAW RESPONSES</h2>
                     <p>{info_summary}</p>
                     <hr>
-                    <h2>ANALYSIS OF RESPONSES</h2>
-                    <p>{insights}</p>
-                    <hr>
-                    <h2>CONCRETE JOB SEARCH RECOMMENDATIONS</h2>
+                    <h2>INSIGHTS AND JOB SEARCH RECOMMENDATIONS</h2>
                     <p>{recommendations}</p>
                 </body>
             </html>
-            """.format(insights=st.session_state.insights, recommendations=st.session_state.recommendations, info_summary=st.session_state.info_summary_html)
+            """.format(recommendations=st.session_state.recommendations, info_summary=st.session_state.info_summary_html)
         
             # Setup the MIME
             message = MIMEMultipart("alternative")
