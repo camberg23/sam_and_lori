@@ -137,7 +137,7 @@ if not st.session_state.authenticated:
     # Arrange the password input and submit button on the same row
     col1, col2 = st.columns([3, 1])
     with col1:
-        password_input = st.text_input("Password", type="password")
+        password_input = st.text_input("Password", type="password", label_visibility='collapsed')
     with col2:
         submit_pressed = st.button("Submit")
 
