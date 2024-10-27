@@ -110,13 +110,17 @@ Here are the raw responses given by the user:
 Here are some INSIGHTS that was generated from the user's raw responses:
 {insights}
 
-Given the user's responses and these insights, your job is to provide concrete recommendations for jobs/job types in the creative world that might suit the user.
+Given the user's responses and these insights, your job is to provide comprehensive concrete recommendations for jobs/job types in the creative world that might suit the user.
 
-The user will be given this report directly. In terms of format, the report should begin by clearly communicating some of the core takeaways from the INSIGHTS before moving onto seamlessly connecting these insights to the job recommendations portion.
+The user will be given this report directly. 
+
+In terms of format, the report should begin by clearly communicating some of the core takeaways from the INSIGHTS before moving onto seamlessly connecting these insights to the job recommendations portion.
 
 Try to split this as 1/3 insights synthesis and 2/3 job/job type recommendations for the user.
 
 Be sure to provide specific information wherever appropriate and to make sure you explain why your suggestions align with the insights about the user provided. Do not give any links.
+
+The report should be roughly 800 words, but never add fluff for its own sake. It should be highly substantive and insightful!
 
 Format your outputs in HTML! Just immediately give the HTML, don't do anything like ```HTML...``` or something.
 
