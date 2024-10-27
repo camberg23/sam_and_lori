@@ -45,25 +45,6 @@ response_options = {
     5: "Strongly Agree"
 }
 
-# Initialize session state
-if 'responses' not in st.session_state:
-    st.session_state.responses = [None] * len(questions)
-
-if 'page' not in st.session_state:
-    st.session_state.page = 2  # Starting at page 2 for this example
-
-# Shuffle questions once per session
-if 'shuffled_questions' not in st.session_state:
-    st.session_state.shuffled_questions = questions.copy()
-    random.shuffle(st.session_state.shuffled_questions)
-
-# Define navigation functions (placeholders)
-def go_back():
-    st.session_state.page -= 1
-
-def go_next():
-    st.session_state.page += 1
-
 # Revised calculate_scores function
 REVERSE_KEYED = [1, 3, 7, 8, 10, 14, 17, 19, 20, 21, 24, 26, 27, 28, 30]
 
@@ -123,34 +104,3 @@ def calculate_scores(responses):
         facet_scores[facet] = round((facet_sum / (len(qs) * 4)) * 100, 3)
     
     return domain_scores, facet_scores
-
-# Page 2: Personality Test (Single Column Layout)
-elif st.session_state.page == 2:
-    st.write("To begin, please indicate the extent to which you agree with the following descriptions. The more accurately you answer, the better the quality of this tool's output!")
-    st.subheader("I am someone who...")
-    
-    # Display all questions in a single column
-    for i, question in enumerate(questions, start=1):
-        st.session_state.responses[i-1] = st.selectbox(
-            f"{i}. {question}",
-            options=list(response_options.keys()),
-            index=None,
-            format_func=lambda x: response_options[x],
-            key=f"Q{i}"
-        )
-    
-    error_placeholder = st.empty()
-    
-    # Navigation buttons
-    col1, col2, col3 = st.columns([1,5,1])
-    with col1:
-        if st.button("Go Back", key=f'back_{st.session_state.page}'):
-            go_back()
-    with col3:
-        if st.button("Next", key=f'next_{st.session_state.page}'):
-            if None not in st.session_state.responses:
-                st.session_state.domain_scores, st.session_state.facet_scores = calculate_scores(st.session_state.responses)
-                go_next()
-            else:
-                with error_placeholder:
-                    st.error("Please answer all questions.")
