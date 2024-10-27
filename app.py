@@ -406,7 +406,7 @@ else:
         col1, col2 = st.columns([5,1])
         with col1:
             with st.expander("**View your report**"):
-                st.components.v1.html(st.session_state.insights, height=500, scrolling=True)
+                st.components.v1.html(st.session_state.recommendations, height=500, scrolling=True)
         with col2:
             st.download_button(
                 label="Download",
