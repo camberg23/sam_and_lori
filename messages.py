@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Define response options
-response_options = {1: "Disagree strongly", 2: "Disagree moderately", 3: "Neutral; no opinion", 4: "Agree moderately", 5: "Agree strongly"}
+# response_options = {1: "Disagree strongly", 2: "Disagree moderately", 3: "Neutral; no opinion", 4: "Agree moderately", 5: "Agree strongly"}
 
 soft_skills = """
 1. **Communication:** Ability to convey information clearly and effectively in both written and verbal forms.
