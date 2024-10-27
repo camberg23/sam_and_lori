@@ -440,7 +440,7 @@ else:
             all_recipients = to_emails + cc_emails
         
             # Email subject
-            subject = f"S&L INTAKE: {st.session_state.personal_info['first_name']} {st.session_state.personal_info['last_name']}"
+            subject = f"Career Compass: {st.session_state.personal_info['first_name']} {st.session_state.personal_info['last_name']}"
         
             # Formatting the email body using HTML
             body = """
