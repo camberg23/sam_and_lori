@@ -138,12 +138,23 @@ else:
     elif st.session_state.page == 2:
         st.write("To begin, please indicate the extent to which you agree with the following descriptions. The more accurately you answer, the better the quality of this tool's output!")
         st.subheader("I am someone who...")
-        col1, col2 = st.columns(2)
+        
+        # Remove the two-column layout
+        # col1, col2 = st.columns(2)
+        
+        # Iterate through questions and display them in a single column
         for i, question in enumerate(questions, start=1):
-            with col1 if i <= len(questions)/2 else col2:
-                st.session_state.responses[i-1] = st.selectbox(f"{i}. {question}", options=list(response_options.keys()), index=None, format_func=lambda x: response_options[x], key=f"Q{i}")
-    
+            st.session_state.responses[i-1] = st.selectbox(
+                f"{i}. {question}",
+                options=list(response_options.keys()),
+                index=None,
+                format_func=lambda x: response_options[x],
+                key=f"Q{i}"
+            )
+        
         error_placeholder = st.empty()
+        
+        # The navigation buttons can remain as they are
         col1, col2, col3 = st.columns([1,5,1])
         with col1:
             if st.button("Go Back", key=f'back_{st.session_state.page}'):
@@ -156,7 +167,7 @@ else:
                 else:
                     with error_placeholder:
                         st.error("Please answer all questions.")
-        
+            
     
     # Page 3: Open-Ended 1
     elif st.session_state.page == 3:
