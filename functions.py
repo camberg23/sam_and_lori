@@ -1,69 +1,87 @@
-# def calculate_scores(responses):
-#     # Reverse scoring for reverse-keyed items
-#     reverse_keyed = {1: 26, 3: 8, 8: 3, 10: 20, 14: 19, 19: 14, 20: 10, 21: 6, 24: 9, 26: 11, 28: 13, 30: 15}
-#     for i in reverse_keyed:
-#         responses[i-1] = 6 - responses[reverse_keyed[i]-1]
-    
-#     # Adjust scores to start at 0
-#     adjusted_responses = [score - 1 for score in responses]
-
-#     # Calculate domain scores as a percentage
-#     domain_scores = {
-#         "Extraversion": sum([adjusted_responses[i-1] for i in [1, 6, 11, 16, 21, 26]]) / (6 * 4),
-#         "Agreeableness": sum([adjusted_responses[i-1] for i in [2, 7, 12, 17, 22, 27]]) / (6 * 4),
-#         "Conscientiousness": sum([adjusted_responses[i-1] for i in [3, 8, 13, 18, 23, 28]]) / (6 * 4),
-#         "Negative Emotionality": sum([adjusted_responses[i-1] for i in [4, 9, 14, 19, 24, 29]]) / (6 * 4),
-#         "Open-Mindedness": sum([adjusted_responses[i-1] for i in [5, 10, 15, 20, 25, 30]]) / (6 * 4)
-#     }
-
-#     # Calculate facet scores as a percentage
-#     facet_scores = {
-#         "Sociability": sum([adjusted_responses[i-1] for i in [1, 16]]) / (2 * 4),
-#         "Assertiveness": sum([adjusted_responses[i-1] for i in [6, 21]]) / (2 * 4),
-#         "Energy Level": sum([adjusted_responses[i-1] for i in [11, 26]]) / (2 * 4),
-#         "Compassion": sum([adjusted_responses[i-1] for i in [2, 17]]) / (2 * 4),
-#         "Respectfulness": sum([adjusted_responses[i-1] for i in [7, 22]]) / (2 * 4),
-#         "Trust": sum([adjusted_responses[i-1] for i in [12, 27]]) / (2 * 4),
-#         "Organization": sum([adjusted_responses[i-1] for i in [3, 18]]) / (2 * 4),
-#         "Productiveness": sum([adjusted_responses[i-1] for i in [8, 23]]) / (2 * 4),
-#         "Responsibility": sum([adjusted_responses[i-1] for i in [13, 28]]) / (2 * 4),
-#         "Anxiety": sum([adjusted_responses[i-1] for i in [4, 19]]) / (2 * 4),
-#         "Depression": sum([adjusted_responses[i-1] for i in [9, 24]]) / (2 * 4),
-#         "Emotional Volatility": sum([adjusted_responses[i-1] for i in [14, 29]]) / (2 * 4),
-#         "Aesthetic Sensitivity": sum([adjusted_responses[i-1] for i in [5, 20]]) / (2 * 4),
-#         "Intellectual Curiosity": sum([adjusted_responses[i-1] for i in [10, 25]]) / (2 * 4),
-#         "Creative Imagination": sum([adjusted_responses[i-1] for i in [15, 30]]) / (2 * 4)
-#     }
-
-#     # Round scores to three significant figures
-#     domain_scores = {key: round(value * 100, 3) for key, value in domain_scores.items()}
-#     facet_scores = {key: round(value * 100, 3) for key, value in facet_scores.items()}
-
-#     return domain_scores, facet_scores
-
-
+import streamlit as st
+import random
 import copy
 
-# Constants
-MAX_RESPONSE = 5
-MIN_RESPONSE = 1
-REVERSE_KEYED = [1, 3, 8, 10, 14, 19, 20, 21, 24, 26, 28, 30]
+# Define the questionnaire
+questions = [
+    "Tends to be quiet.",                              # Q1 [Reverse]
+    "Is compassionate, has a soft heart.",            # Q2
+    "Tends to be disorganized.",                      # Q3 [Reverse]
+    "Worries a lot.",                                  # Q4
+    "Is fascinated by art, music, or literature.",     # Q5
+    "Is dominant, acts as a leader.",                 # Q6
+    "Is sometimes rude to others.",                    # Q7 [Reverse]
+    "Has difficulty getting started on tasks.",        # Q8 [Reverse]
+    "Tends to feel down, blue.",                       # Q9
+    "Has little interest in abstract ideas.",          # Q10 [Reverse]
+    "Is full of energy.",                              # Q11
+    "Assumes the best about people.",                  # Q12
+    "Is reliable, can always be counted on.",          # Q13 [Reverse]
+    "Is emotionally stable, not easily upset.",        # Q14 [Reverse]
+    "Is original, comes up with new ideas.",            # Q15
+    "Is outgoing, sociable.",                          # Q16
+    "Can be cold and uncaring.",                       # Q17 [Reverse]
+    "Keeps things neat and tidy.",                     # Q18 [Reverse]
+    "Is relaxed, handles stress well.",                # Q19 [Reverse]
+    "Has few artistic interests.",                     # Q20 [Reverse]
+    "Prefers to have others take charge.",             # Q21 [Reverse]
+    "Is respectful, treats others with respect.",       # Q22
+    "Is persistent, works until the task is finished.",# Q23 [Reverse]
+    "Feels secure, comfortable with self.",            # Q24 [Reverse]
+    "Is complex, a deep thinker.",                      # Q25
+    "Is less active than other people.",               # Q26 [Reverse]
+    "Tends to find fault with others.",                # Q27 [Reverse]
+    "Can be somewhat careless.",                       # Q28 [Reverse]
+    "Is temperamental, gets emotional easily.",        # Q29 [Reverse]
+    "Has little creativity."                           # Q30 [Reverse]
+]
+
+# Response options
+response_options = {
+    1: "Strongly Disagree",
+    2: "Disagree",
+    3: "Neutral",
+    4: "Agree",
+    5: "Strongly Agree"
+}
+
+# Initialize session state
+if 'responses' not in st.session_state:
+    st.session_state.responses = [None] * len(questions)
+
+if 'page' not in st.session_state:
+    st.session_state.page = 2  # Starting at page 2 for this example
+
+# Shuffle questions once per session
+if 'shuffled_questions' not in st.session_state:
+    st.session_state.shuffled_questions = questions.copy()
+    random.shuffle(st.session_state.shuffled_questions)
+
+# Define navigation functions (placeholders)
+def go_back():
+    st.session_state.page -= 1
+
+def go_next():
+    st.session_state.page += 1
+
+# Revised calculate_scores function
+REVERSE_KEYED = [1, 3, 7, 8, 10, 14, 17, 19, 20, 21, 24, 26, 27, 28, 30]
 
 def calculate_scores(responses):
     # Validate responses
     for idx, score in enumerate(responses, start=1):
         if score not in [1, 2, 3, 4, 5]:
-            raise ValueError(f"Invalid response for question {idx}: {score}. Must be between {MIN_RESPONSE} and {MAX_RESPONSE}.")
+            raise ValueError(f"Invalid response for question {idx}: {score}. Must be between 1 and 5.")
     
     # Create a deep copy to avoid modifying the original responses
     processed_responses = copy.deepcopy(responses)
     
     # Reverse scoring: invert responses for reverse-keyed questions
     for i in REVERSE_KEYED:
-        processed_responses[i-1] = (MAX_RESPONSE + 1) - processed_responses[i-1]
+        processed_responses[i-1] = (5 + 1) - processed_responses[i-1]
     
     # Adjust scores to start at 0
-    adjusted_responses = [score - MIN_RESPONSE for score in processed_responses]
+    adjusted_responses = [score - 1 for score in processed_responses]
     
     # Define domain and facet mappings
     domain_mapping = {
@@ -105,3 +123,34 @@ def calculate_scores(responses):
         facet_scores[facet] = round((facet_sum / (len(qs) * 4)) * 100, 3)
     
     return domain_scores, facet_scores
+
+# Page 2: Personality Test (Single Column Layout)
+elif st.session_state.page == 2:
+    st.write("To begin, please indicate the extent to which you agree with the following descriptions. The more accurately you answer, the better the quality of this tool's output!")
+    st.subheader("I am someone who...")
+    
+    # Display all questions in a single column
+    for i, question in enumerate(questions, start=1):
+        st.session_state.responses[i-1] = st.selectbox(
+            f"{i}. {question}",
+            options=list(response_options.keys()),
+            index=None,
+            format_func=lambda x: response_options[x],
+            key=f"Q{i}"
+        )
+    
+    error_placeholder = st.empty()
+    
+    # Navigation buttons
+    col1, col2, col3 = st.columns([1,5,1])
+    with col1:
+        if st.button("Go Back", key=f'back_{st.session_state.page}'):
+            go_back()
+    with col3:
+        if st.button("Next", key=f'next_{st.session_state.page}'):
+            if None not in st.session_state.responses:
+                st.session_state.domain_scores, st.session_state.facet_scores = calculate_scores(st.session_state.responses)
+                go_next()
+            else:
+                with error_placeholder:
+                    st.error("Please answer all questions.")
