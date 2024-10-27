@@ -141,12 +141,14 @@ You will be given a comprehensive synthesis of a user's information related to f
 Here are the raw responses given by the user:
 {raw_data}
 
-Here are some insights that was generated from the user's raw responses:
+Here are some INSIGHTS that was generated from the user's raw responses:
 {insights}
 
 Given the user's responses and these insights, your job is to provide concrete recommendations for jobs/job types in the creative world that might suit the user.
 
-These recommendations will be given to two professional recruiters as a basis for their consultation and continued work with the user. 
+The user will be given this report directly. In terms of format, the report should begin by clearly communicating some of the core takeaways from the INSIGHTS before moving onto seamlessly connecting these insights to the job recommendations portion.
+
+Try to split this as 1/3 insights synthesis and 2/3 job/job type recommendations for the user.
 
 Be sure to provide specific information wherever appropriate and to make sure you explain why your suggestions align with the insights about the user provided. Do not give any links.
 
