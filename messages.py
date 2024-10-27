@@ -1,39 +1,5 @@
 import streamlit as st
 
-# Define the questionnaire
-questions = [
-    "Tends to be quiet.",
-    "Is compassionate, has a soft heart.",
-    "Tends to be disorganized.",
-    "Worries a lot.",
-    "Is fascinated by art, music, or literature.",
-    "Is dominant, acts as a leader.",
-    "Is sometimes rude to others.",
-    "Has difficulty getting started on tasks.",
-    "Tends to feel down, blue.",
-    "Has little interest in abstract ideas.",
-    "Is full of energy.",
-    "Assumes the best about people.",
-    "Is reliable, can always be counted on.",
-    "Is emotionally stable, not easily upset.",
-    "Is original, comes up with new ideas.",
-    "Is outgoing, sociable.",
-    "Can be cold and uncaring.",
-    "Keeps things neat and tidy.",
-    "Is relaxed, handles stress well.",
-    "Has few artistic interests.",
-    "Prefers to have others take charge.",
-    "Is respectful, treats others with respect.",
-    "Is persistent, works until the task is finished.",
-    "Feels secure, comfortable with self.",
-    "Is complex, a deep thinker.",
-    "Is less active than other people.",
-    "Tends to find fault with others.",
-    "Can be somewhat careless.",
-    "Is temperamental, gets emotional easily.",
-    "Has little creativity."
-]
-
 # Define response options
 response_options = {1: "Disagree strongly", 2: "Disagree moderately", 3: "Neutral; no opinion", 4: "Agree moderately", 5: "Agree strongly"}
 
