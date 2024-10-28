@@ -17,8 +17,8 @@ if 'authenticated' not in st.session_state:
     st.session_state.authenticated = False
 
 if not st.session_state.authenticated:
-    st.title("Welcome to Your Career Compass")
-    st.write("Please enter the password before proceeding")
+    st.title("Welcome to Your Career Compass!")
+    st.write("Please enter the password before proceeding.")
 
     # Arrange the password input and submit button on the same row
     col1, col2 = st.columns([3, 1])
