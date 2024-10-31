@@ -107,7 +107,7 @@ else:
     if st.session_state.page == 1:  
         st.subheader("Wecome to Your Career Compass!")
         st.write("This will take roughly 15 minutes to complete. Once you are finished, you will receive a career report custom-tailored to your personality, interests, and skills!")
-        st.write('**Note: this tool is a demo and has limitations. For this reason, it is best to complete the form in one sitting; if the app is abandoned for too long, you will lose your progress!** Please begin by filling in your basic information below:')# Placeholder for more specific instructions
+        st.write('**Note: this tool is a demo and has limitations. For this reason, it is best to complete the form in one sitting. If the app is abandoned for too long, you will lose your progress! The buttons in the top right corner of the page should not be clicked.** Please begin by filling in your basic information below:')# Placeholder for more specific instructions
     
         # Placeholder for error messages
         error_placeholder = st.empty()
